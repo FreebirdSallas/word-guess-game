@@ -1,0 +1,41 @@
+body {
+    background-image: url("../images/nasa-89125-unsplash.jpg");
+    /* Photo by NASA on Unsplash */
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+#currentWord {
+    color: aquamarine;
+}
+.column {
+    float: left;
+    width: 50%;
+}
+header {
+    font-family: 'Shrikhand', cursive;
+    font-size: 10em;
+    text-align: center;
+    color: aquamarine;
+    margin-bottom: 50px;
+}
+h1{
+    color: #ff00bf;
+    text-align: center;
+    font-family: 'Mouse Memoirs', sans-serif;
+    font-size: 2.5em;
+
+}
+h2 {
+    font-size: 2em;
+    color: white;
+    text-align: center;
+    font-family: 'Mouse Memoirs', sans-serif;
+}
+p {
+    color: white;
+    font-size: 3em;
+    text-align: center;
+    font-family: 'Mouse Memoirs', sans-serif;
+}
