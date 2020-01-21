@@ -1,72 +1,133 @@
+var spaceStuff = ["cosmos", "supernova", "blackhole", "star", "dust", "comet", "universe"];
 
-var spaceStuff = ["cosmos", "supernovae", "blackhole", "star"];
+let answer = "";
+let mistakes = 0;
+let guessed = [];
+let wins = 0;
+let loses = 0;
+let gameDone = false;
+let guessesRemaining = 10;
 
-const maxTries = 10;
-var guessedLetters = [];        // Stores the letters the user guessed
-var currentWordIndex;           // Index of the current word in the array
-var guessingWord = [];          // This will be the word we actually build to match the current word
-var remainingGuesses = 0;       // How many tries the player has left
-var gameStarted = false;        // Flag to tell if the game has started
-var hasFinished = false;        // Flag for 'press any key to try again'     
-// http://danorlovsky.tech/Articles/Javascript-Hangman-Tutorial
 
-document.onkeydown = function(event) {
-    if(hasFinished) {
-        resetGame();
-        hasFinished = false;
-    } else {
-        if(event.keyCode >= 65 && event.keyCode <= 90) {
-            makeGuess(event.key.toLowerCase());
+function wordRandom() {
+    answer = spaceStuff[Math.floor(Math.random() * spaceStuff.length)];
+};
+
+document.onkeypress = function (event) {
+    var userGuess = event.key;
+    userGuess = userGuess.toLowerCase();
+    checkGuess(userGuess);
+    drawUnderScore();
+};
+
+function checkGuess(userGuess) {
+    if (gameDone === true) {
+        reset();
+        return;
+    }
+    var theLetter = false;
+    var alphabetArray = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+    for (i = 0; i < alphabetArray.length; i++) {
+        if (userGuess === alphabetArray[i]) {
+            theLetter = true;
         }
     }
-function resetGame() {
-        remainingGuesses = maxTries;
-        gameStarted = false;
-        currentWordIndex = Math.floor(Math.random() * (spaceStuff.length));
-        guessedLetters = [];
-        guessingWord = [];
-    
-        for (var i = 0; i < spaceStuff[currentWordIndex].length; i++) {
-            guessingWord.push("_");
+    if (theLetter === false) {
+        alert("No letter like that in space!");
+        return;
+    }
+    var letterMatch = false;
+    for (i = 0; i < answer.length; i++) {
+        if (userGuess === answer[i]) {
+            letterMatch = true;
+            wordSpace[i] = userGuess;
         }
-        updateDisplay();
-        };
-function updateDisplay() {
-        document.getElementById("currentWord").innerText = "";
-        for (var i = 0; i < guessingWord.length; i++) {
-            document.getElementById("currentWord").innerText += guessingWord[i];
+    }
+    var didWeWin = true;
+    for (i = 0; i < answer.length; i++) {
+        if (wordSpace[i] != answer[i]) {
+            didWeWin = false;
         }
-        document.getElementById("remainingGuesses").innerText = remainingGuesses;
-        document.getElementById("guessedLetters").innerText = guessedLetters;
-        if(remainingGuesses <= 0) {
-            hasFinished = true;
+    }
+    if (didWeWin === true) {
+        winnerFunction();
+        return;
+    }
+    for (i = 0; i < guessed.length; i++) {
+        if (userGuess === guessed[i]) {
+            return;
         }
-        };
-function makeGuess(letter) {
-        if (remainingGuesses > 0) {
-            if (!gameStarted) {
-                gameStarted = true;
-            }
-            if (guessedLetters.indexOf(letter) === -1) {
-                guessedLetters.push(letter);
-                evaluateGuess(letter);
-            }
-        } 
-        updateDisplay();
-        };
-function evaluateGuess(letter) {
-        var positions = [];
-        for (var i = 0; i < spaceStuff[currentWordIndex].length; i++) {
-            if(spaceStuff[currentWordIndex][i] === letter) {
-                positions.push(i);
-            }
-        }
-        if (positions.length <= 0) {
-            remainingGuesses--;
-        } else {
-            for(var i = 0; i < positions.length; i++) {
-                guessingWord[positions[i]] = letter;
-            }
-        }
-    };
-};
+    }
+    if (!letterMatch) {
+        guessesRemaining--;
+        mistakes++;
+        updateMistake();
+        guessesRemainingFunction();
+        guessed.push(userGuess);
+        alreadyGuessedFunction();
+    }
+    if (guessesRemaining === 0) {
+        loserFunction();
+        reset();
+        return;
+    }
+}
+function alreadyGuessedFunction() {
+    document.getElementById("guessed").innerHTML = guessed;
+}
+function guessesRemainingFunction() {
+    document.getElementById("guessesLeft").innerHTML = guessesRemaining;
+}
+function updateMistake() {
+    document.getElementById("mistakes").innerHTML = mistakes;
+}
+
+document.getElementById("currentWord").innerHTML = wordSpace;
+
+function underScore() {
+    var underscoreArray = [];
+    for (i = 0; i < answer.length; i++) {
+        underscoreArray.push("_");
+    }
+    return underscoreArray;
+}
+
+var wordSpace = underScore();
+
+function drawUnderScore() {
+    for (i = 0; i < wordSpace.length; i++) {
+        document.getElementById("currentWord").innerHTML = wordSpace.join(" ");
+    }
+}
+
+function winnerFunction() {
+    wins++
+    winsFunction();
+}
+function winsFunction() {
+    document.getElementById("wins").innerHTML = wins;
+    gameDone = true;
+}
+function loserFunction() {
+    loses++
+    losFunction();
+}
+function losFunction() {
+    document.getElementById("loses").innerHTML = loses;
+    gameDone = true;
+}
+function reset() {
+    mistakes.length = 0;
+    updateMistake();
+    guessed.length = 0;
+    alreadyGuessedFunction();
+    guessesRemaining = 10;
+    guessesRemainingFunction();
+    answer = spaceStuff[Math.floor(Math.random() * spaceStuff.length)];
+    wordSpace = underScore();
+    gameDone = false;
+}
+
+drawUnderScore();
+wordRandom();
+
