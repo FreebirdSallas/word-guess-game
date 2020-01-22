@@ -128,6 +128,3 @@ function reset() {
     gameDone = false;
 }
 
-drawUnderScore();
-wordRandom();
-
