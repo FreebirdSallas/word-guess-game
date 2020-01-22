@@ -6,47 +6,50 @@
     <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <!-- bootsrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Mouse+Memoirs|Shrikhand&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed|Lobster&display=swap" rel="stylesheet">
     <title>HangMan</title>
 
 </head>
 
 <body>
-    <div class="container">
-        <div class="row pb-md-5">
-            <h1>HangMan Space!</h1>
+    <div class="container firstBody">
+        <div class="row pb-md-4" style="margin: 0 auto;">
+            <h1 style="font-size: 60px;">HangMan Space!</h1>
         </div>
-        <div class="row">
+        <hr class="hr-one">
+        <div class="row" style="font-family: 'Fira Sans Extra Condensed', sans-serif;">
             <div class="col-md">
-                <div class="float-left">Wrong Guesses: <span id="mistakes">0</span> of 10</div>
-                <div id="guessed"></div>
+                <div style="padding-bottom: 10px; font-size: 20px">Wrong Guesses: <span id="mistakes">0</span></div>
+                <div style="width: 100%;" id="guessed"></div>
             </div>
             <div class="col-md">
                 <h2>Let's Begin</h2>
-                <p>Think of a word from space!</p>
-                <p id="currentWord"></p>
+                <p style="font-size:20px;">Think of a word from space!</p>
+                <p style="font-size: 30px;" id="currentWord"></p>
                 <h4>You don't have alot of moves, so guess carefully.</h4>
-                <p id="guessesLeft">10</p>
+                <p style="font-size:25px;" id="guessesLeft">10</p>
             </div>
         </div>
-        <div class="container align-center">
-            <ul class="list-group">
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Wins:
-                    <span id="wins" class="badge badge-primary badge-pill">0</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Loses:
-                    <span id="loses" class="badge badge-primary badge-pill">0</span>
-                </li>
-            </ul>
-            <script src="assets/javascript/game.js"></script>
-        </div>
-        <footer>
-        </footer>
     </div>
+    <div class="container">
+        <ul class="list-group align-items-center">
+            <li class="list-group-item align-items-center" style="padding-left: 26.5px;">
+                Wins:
+                <span id="wins" class="badge badge-primary badge-pill">0</span>
+            </li>
+            <li class="list-group-item align-items-center">
+                Loses:
+                <span id="loses" class="badge badge-primary badge-pill">0</span>
+            </li>
+        </ul>
+        <script src="assets/javascript/game.js"></script>
+    </div>
+    <footer>
+    </footer>
+
 </body>
 
 </html>
